@@ -1,0 +1,6 @@
+build/
+node_modules/
+# artifacts of the VSCode plugin
+reach
+.index.rsh.temp
+.vscode
