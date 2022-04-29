@@ -1,14 +1,14 @@
 import React from 'react';
-import UserViews from './UserViews';
+import PlayerViews from './PlayerViews';
 
-const exports = {...UserViews};
+const exports = {...PlayerViews};
 
 exports.Wrapper = class extends React.Component {
   render() {
     const {content} = this.props;
     return (
-      <div className="Client">
-        <h2>Subscriber(Client)</h2>
+      <div className="Attacher">
+        <h2>Attacher (Bob)</h2>
         {content}
       </div>
     );
@@ -50,14 +50,12 @@ exports.Attaching = class extends React.Component {
 
 exports.AcceptTerms = class extends React.Component {
   render() {
-    const {premium, cover, standardUnit, parent} = this.props;
+    const {wager, standardUnit, parent} = this.props;
     const {disabled} = this.state || {};
     return (
       <div>
-        Insurance terms and conditions are:
-        <br /> Premium: {premium} {standardUnit}
-        <br /> Cover: {cover} {standardUnit}
-        <br />
+        The terms of the game are:
+        <br /> Wager: {wager} {standardUnit}
         <br />
         <button
           disabled={disabled}
@@ -65,51 +63,18 @@ exports.AcceptTerms = class extends React.Component {
             this.setState({disabled: true});
             parent.termsAccepted();
           }}
-        >Accept terms and pay product</button>
+        >Accept terms and pay wager</button>
       </div>
     );
   }
 }
 
-exports.WaitingForInurance = class extends React.Component {
+exports.WaitingForTurn = class extends React.Component {
   render() {
     return (
       <div>
-        Waiting for Insurance(Admin) to activate the cover...
-        <br />Once the cover has been activated, you will be able to claim
-      </div>
-    );
-  }
-}
-
-exports.Claim = class extends React.Component {
-  render() {
-    const { parent, playable} = this.props;
-      return (
-        <div>
-          <div>
-            Your cover is active
-            <br />You can Claim Now
-          </div>
-          <br />
-          {!playable ? 'Please wait...' : ''}
-          <br />
-          <button
-          disabled={!playable}
-          onClick={() => parent.takeAction('WAIT')}
-        >Claim</button>
-        </div>
-      );
-
-  }
-}
-
-exports.WaitingForClaimOutcome = class extends React.Component {
-  render() {
-    return (
-      <div>
-        The claim was submitted successfully...
-        <br/> Please wait for the outcome 
+        Waiting for the other player...
+        <br />Think about which move you want to play.
       </div>
     );
   }
