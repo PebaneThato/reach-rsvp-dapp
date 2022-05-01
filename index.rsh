@@ -65,10 +65,11 @@ export const main = Reach.App(() => {
 
     Alice.only(() => {
       const _handAlice = interact.approveInvitee();
+      const approvalStatus = declassify(_handAlice);
       const [_commitAlice, _saltAlice] = makeCommitment(interact, _handAlice);
       const commitAlice = declassify(_commitAlice);
     });
-    Alice.publish(commitAlice)
+    Alice.publish(approvalStatus, commitAlice)
       .timeout(relativeTime(deadline), () => closeTo(Bob, informTimeout));
     commit();
 
