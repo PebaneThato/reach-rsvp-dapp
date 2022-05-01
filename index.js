@@ -10,7 +10,7 @@ const reach = loadStdlib(process.env);
 import { ALGO_MyAlgoConnect as MyAlgoConnect } from '@reach-sh/stdlib';
 reach.setWalletFallback(reach.walletFallback({ providerEnv: 'TestNet', MyAlgoConnect }));
 
-const handToInt = {'ROCK': 0, 'PAPER': 1, 'SCISSORS': 2};
+const handToInt = {'APPROVE': 0, 'PAPER': 1, 'SCISSORS': 2};
 const intToOutcome = ['RSVP has been approved', 'Draw!', 'RSVP was declined'];
 const {standardUnit} = reach;
 const defaults = {defaultFundAmt: '10', defaultWager: '3', standardUnit};

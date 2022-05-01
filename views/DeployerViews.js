@@ -107,12 +107,12 @@ exports.ApproveInvitee = class extends React.Component {
         <br />
         <button
           disabled={!playable}
-          onClick={() => parent.playHand('ROCK')}
-        >Rock</button>
+          onClick={() => parent.playHand('APPROVE')}
+        >Approve</button>
         <button
           disabled={!playable}
           onClick={() => parent.playHand('SCISSORS')}
-        >Scissors</button>
+        >Decline</button>
       </div>
     );
   }
