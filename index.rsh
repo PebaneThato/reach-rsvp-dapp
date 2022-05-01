@@ -55,35 +55,26 @@ export const main = Reach.App(() => {
   });
   Bob.pay(eventFee)
     .timeout(relativeTime(deadline), () => closeTo(Alice, informTimeout));
+  transfer(eventFee).to(Alice);
 
   var outcome = DRAW;
-  invariant(balance() == 2 * eventFee && isOutcome(outcome));
+  invariant(balance() == eventFee && isOutcome(outcome));
   while (outcome == DRAW) {
     commit();
 
     Alice.only(() => {
       const _handAlice = interact.approveInvitee();
       const approvalStatus = declassify(_handAlice);
-      const [_commitAlice, _saltAlice] = makeCommitment(interact, _handAlice);
-      const commitAlice = declassify(_commitAlice);
     });
-    Alice.publish(approvalStatus, commitAlice)
+    Alice.publish(approvalStatus)
       .timeout(relativeTime(deadline), () => closeTo(Bob, informTimeout));
 
     if (approvalStatus === B_WINS) {
-      commit();
-      Alice.pay(2 * eventFee)
-        .timeout(relativeTime(deadline), () => closeTo(Alice, informTimeout));
-      transfer(2 * eventFee).to(Bob);
       outcome = B_WINS;
       continue;
     }
 
     if (approvalStatus === A_WINS) {
-      commit();
-      Bob.pay(2 * eventFee)
-        .timeout(relativeTime(deadline), () => closeTo(Bob, informTimeout));
-      transfer(2 * eventFee).to(Alice);
       outcome = A_WINS;
       continue;
     }
@@ -92,7 +83,7 @@ export const main = Reach.App(() => {
   }
 
   assert(outcome == A_WINS || outcome == B_WINS);
-  transfer(2 * eventFee).to(outcome == A_WINS ? Alice : Bob);
+  transfer(eventFee).to(outcome == A_WINS ? Alice : Bob);
   commit();
 
   each([Alice, Bob], () => {
