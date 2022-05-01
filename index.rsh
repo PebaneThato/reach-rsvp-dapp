@@ -29,6 +29,7 @@ export const main = Reach.App(() => {
     ...Player,
     wager: UInt, // atomic units of currency
     deadline: UInt, // time delta (blocks/rounds)
+    approveInvitee: Fun([], UInt),
   });
   const Bob   = Participant('Bob', {
     ...Player,
@@ -62,7 +63,7 @@ export const main = Reach.App(() => {
     commit();
 
     Alice.only(() => {
-      const _handAlice = interact.getHand();
+      const _handAlice = interact.approveInvitee();
       const [_commitAlice, _saltAlice] = makeCommitment(interact, _handAlice);
       const commitAlice = declassify(_commitAlice);
     });

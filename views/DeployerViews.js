@@ -94,4 +94,29 @@ exports.WaitingForAttacher = class extends React.Component {
   }
 }
 
+// Player views must be extended.
+// It does not have its own Wrapper view.
+
+exports.ApproveInvitee = class extends React.Component {
+  render() {
+    const {parent, playable, hand} = this.props;
+    return (
+      <div>
+        {hand ? 'Waiting for more invitees.' : ''}
+        <br />
+        {!playable ? 'Please wait...' : ''}
+        <br />
+        <button
+          disabled={!playable}
+          onClick={() => parent.playHand('ROCK')}
+        >Rock</button>
+        <button
+          disabled={!playable}
+          onClick={() => parent.playHand('SCISSORS')}
+        >Scissors</button>
+      </div>
+    );
+  }
+}
+
 export default exports;

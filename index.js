@@ -70,6 +70,15 @@ class Deployer extends Player {
     const ctcInfoStr = JSON.stringify(await ctc.getInfo(), null, 2);
     this.setState({view: 'WaitingForAttacher', ctcInfoStr});
   }
+
+  async approveInvitee() { // Fun([], UInt)
+    const hand = await new Promise(resolveHandP => {
+      this.setState({view: 'ApproveInvitee', playable: true, resolveHandP});
+    });
+    this.setState({view: 'WaitingForResults', hand});
+    return handToInt[hand];
+  }
+
   render() { return renderView(this, DeployerViews); }
 }
 class Attacher extends Player {
