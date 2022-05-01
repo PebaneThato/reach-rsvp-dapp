@@ -50,12 +50,12 @@ exports.Attaching = class extends React.Component {
 
 exports.AcceptTerms = class extends React.Component {
   render() {
-    const {wager, standardUnit, parent} = this.props;
+    const {eventFee, standardUnit, parent} = this.props;
     const {disabled} = this.state || {};
     return (
       <div>
         The details of the event are:
-        <br /> Event Fee: {wager} {standardUnit}
+        <br /> Event Fee: {eventFee} {standardUnit}
         <br />
         <button
           disabled={disabled}

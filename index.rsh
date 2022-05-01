@@ -26,7 +26,7 @@ const Player = {
 export const main = Reach.App(() => {
   const Alice = Participant('Alice', {
     ...Player,
-    wager: UInt, // atomic units of currency
+    eventFee: UInt, // atomic units of currency
     deadline: UInt, // time delta (blocks/rounds)
     approveInvitee: Fun([], UInt),
   });
@@ -43,21 +43,21 @@ export const main = Reach.App(() => {
   };
 
   Alice.only(() => {
-    const wager = declassify(interact.wager);
+    const eventFee = declassify(interact.eventFee);
     const deadline = declassify(interact.deadline);
   });
-  Alice.publish(wager, deadline)
-    .pay(wager);
+  Alice.publish(eventFee, deadline)
+    .pay(eventFee);
   commit();
 
   Bob.only(() => {
-    interact.acceptWager(wager);
+    interact.acceptWager(eventFee);
   });
-  Bob.pay(wager)
+  Bob.pay(eventFee)
     .timeout(relativeTime(deadline), () => closeTo(Alice, informTimeout));
 
   var outcome = DRAW;
-  invariant(balance() == 2 * wager && isOutcome(outcome));
+  invariant(balance() == 2 * eventFee && isOutcome(outcome));
   while (outcome == DRAW) {
     commit();
 
@@ -72,18 +72,18 @@ export const main = Reach.App(() => {
 
     if (approvalStatus === B_WINS) {
       commit();
-      Alice.pay(2 * wager)
+      Alice.pay(2 * eventFee)
         .timeout(relativeTime(deadline), () => closeTo(Alice, informTimeout));
-      transfer(2 * wager).to(Bob);
+      transfer(2 * eventFee).to(Bob);
       outcome = B_WINS;
       continue;
     }
 
     if (approvalStatus === A_WINS) {
       commit();
-      Bob.pay(2 * wager)
+      Bob.pay(2 * eventFee)
         .timeout(relativeTime(deadline), () => closeTo(Bob, informTimeout));
-      transfer(2 * wager).to(Alice);
+      transfer(2 * eventFee).to(Alice);
       outcome = A_WINS;
       continue;
     }
@@ -92,7 +92,7 @@ export const main = Reach.App(() => {
   }
 
   assert(outcome == A_WINS || outcome == B_WINS);
-  transfer(2 * wager).to(outcome == A_WINS ? Alice : Bob);
+  transfer(2 * eventFee).to(outcome == A_WINS ? Alice : Bob);
   commit();
 
   each([Alice, Bob], () => {

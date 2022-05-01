@@ -53,11 +53,11 @@ class Deployer extends Player {
     super(props);
     this.state = {view: 'SetWager'};
   }
-  setWager(wager) { this.setState({view: 'Deploy', wager}); }
+  setWager(eventFee) { this.setState({view: 'Deploy', eventFee}); }
   async deploy() {
     const ctc = this.props.acc.contract(backend);
     this.setState({view: 'Deploying', ctc});
-    this.wager = reach.parseCurrency(this.state.wager); // UInt
+    this.eventFee = reach.parseCurrency(this.state.eventFee); // UInt
     this.deadline = {ETH: 10, ALGO: 100, CFX: 1000}[reach.connector]; // UInt
     backend.Alice(ctc, this);
     const ctcInfoStr = JSON.stringify(await ctc.getInfo(), null, 2);
@@ -84,10 +84,10 @@ class Attacher extends Player {
     this.setState({view: 'Attaching'});
     backend.Bob(ctc, this);
   }
-  async acceptWager(wagerAtomic) { // Fun([UInt], Null)
-    const wager = reach.formatCurrency(wagerAtomic, 4);
+  async acceptWager(eventFeeAtomic) { // Fun([UInt], Null)
+    const eventFee = reach.formatCurrency(eventFeeAtomic, 4);
     return await new Promise(resolveAcceptedP => {
-      this.setState({view: 'AcceptTerms', wager, resolveAcceptedP});
+      this.setState({view: 'AcceptTerms', eventFee, resolveAcceptedP});
     });
   }
   termsAccepted() {

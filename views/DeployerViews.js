@@ -20,7 +20,7 @@ exports.Wrapper = class extends React.Component {
 exports.SetWager = class extends React.Component {
   render() {
     const { parent, defaultWager, standardUnit } = this.props;
-    const wager = (this.state || {}).wager || defaultWager;
+    const eventFee = (this.state || {}).eventFee || defaultWager;
     return (
       <div>
         <div>Evenet Fee  {standardUnit}</div>
@@ -28,12 +28,12 @@ exports.SetWager = class extends React.Component {
           <input
             type='number'
             placeholder={defaultWager}
-            onChange={(e) => this.setState({ wager: e.currentTarget.value })}
+            onChange={(e) => this.setState({ eventFee: e.currentTarget.value })}
           />
         </div>
         <br />
         <button
-          onClick={() => parent.setWager(wager)}
+          onClick={() => parent.setWager(eventFee)}
         >New Event</button>
       </div>
     );
@@ -42,12 +42,12 @@ exports.SetWager = class extends React.Component {
 
 exports.Deploy = class extends React.Component {
   render() {
-    const { parent, wager, standardUnit } = this.props;
+    const { parent, eventFee, standardUnit } = this.props;
     return (
       <div>
         Event Details Confirmation:
         <br />
-        Event Fee: <strong>{wager}</strong> {standardUnit}
+        Event Fee: <strong>{eventFee}</strong> {standardUnit}
         <br />
         <button
           onClick={() => parent.deploy()}
