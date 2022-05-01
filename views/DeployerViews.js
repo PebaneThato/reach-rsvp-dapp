@@ -17,23 +17,23 @@ exports.Wrapper = class extends React.Component {
   }
 }
 
-exports.SetWager = class extends React.Component {
+exports.SetEventFee = class extends React.Component {
   render() {
-    const { parent, defaultWager, standardUnit } = this.props;
-    const eventFee = (this.state || {}).eventFee || defaultWager;
+    const { parent, defaultEventFee, standardUnit } = this.props;
+    const eventFee = (this.state || {}).eventFee || defaultEventFee;
     return (
       <div>
         <div>Evenet Fee  {standardUnit}</div>
         <div>
           <input
             type='number'
-            placeholder={defaultWager}
+            placeholder={defaultEventFee}
             onChange={(e) => this.setState({ eventFee: e.currentTarget.value })}
           />
         </div>
         <br />
         <button
-          onClick={() => parent.setWager(eventFee)}
+          onClick={() => parent.setEventFee(eventFee)}
         >New Event</button>
       </div>
     );

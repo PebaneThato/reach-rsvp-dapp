@@ -32,7 +32,7 @@ export const main = Reach.App(() => {
   });
   const Bob = Participant('Bob', {
     ...Player,
-    acceptWager: Fun([UInt], Null),
+    acceptEventFee: Fun([UInt], Null),
   });
   init();
 
@@ -51,7 +51,7 @@ export const main = Reach.App(() => {
   commit();
 
   Bob.only(() => {
-    interact.acceptWager(eventFee);
+    interact.acceptEventFee(eventFee);
   });
   Bob.pay(eventFee)
     .timeout(relativeTime(deadline), () => closeTo(Alice, informTimeout));

@@ -13,7 +13,7 @@ reach.setWalletFallback(reach.walletFallback({ providerEnv: 'TestNet', MyAlgoCon
 const handToInt = {'APPROVE': 0, 'PAPER': 1, 'DECLINE': 2};
 const intToOutcome = ['RSVP has been approved', 'Draw!', 'RSVP was declined'];
 const {standardUnit} = reach;
-const defaults = {defaultFundAmt: '10', defaultWager: '3', standardUnit};
+const defaults = {defaultFundAmt: '10', defaultEventFee: '3', standardUnit};
 
 class App extends React.Component {
   constructor(props) {
@@ -51,9 +51,9 @@ class Player extends React.Component {
 class Deployer extends Player {
   constructor(props) {
     super(props);
-    this.state = {view: 'SetWager'};
+    this.state = {view: 'SetEventFee'};
   }
-  setWager(eventFee) { this.setState({view: 'Deploy', eventFee}); }
+  setEventFee(eventFee) { this.setState({view: 'Deploy', eventFee}); }
   async deploy() {
     const ctc = this.props.acc.contract(backend);
     this.setState({view: 'Deploying', ctc});
@@ -84,7 +84,7 @@ class Attacher extends Player {
     this.setState({view: 'Attaching'});
     backend.Bob(ctc, this);
   }
-  async acceptWager(eventFeeAtomic) { // Fun([UInt], Null)
+  async acceptEventFee(eventFeeAtomic) { // Fun([UInt], Null)
     const eventFee = reach.formatCurrency(eventFeeAtomic, 4);
     return await new Promise(resolveAcceptedP => {
       this.setState({view: 'AcceptTerms', eventFee, resolveAcceptedP});
