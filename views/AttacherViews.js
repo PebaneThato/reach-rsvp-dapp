@@ -80,21 +80,4 @@ exports.WaitingForTurn = class extends React.Component {
   }
 }
 
-exports.RequestRefund = class extends React.Component {
-  render() {
-    const {parent, playable, hand} = this.props;
-    return (
-      <div>
-        <br />
-        {!playable ? 'Please wait...' : ''}
-        <br />
-        <button
-          disabled={!playable}
-          onClick={() => parent.playHand('PAPER')}
-        >Paper</button>
-      </div>
-    );
-  }
-}
-
 export default exports;

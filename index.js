@@ -95,14 +95,6 @@ class Attacher extends Player {
     this.setState({view: 'WaitingForTurn'});
   }
 
-  async requestRefund() { // Fun([], UInt)
-    const hand = await new Promise(resolveHandP => {
-      this.setState({view: 'RequestRefund', playable: true, resolveHandP});
-    });
-    this.setState({view: 'WaitingForResults', hand});
-    return handToInt[hand];
-  }
-
   render() { return renderView(this, AttacherViews); }
 }
 

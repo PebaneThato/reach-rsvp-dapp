@@ -33,7 +33,6 @@ export const main = Reach.App(() => {
   const Bob = Participant('Bob', {
     ...Player,
     acceptWager: Fun([UInt], Null),
-    requestRefund: Fun([], UInt),
   });
   init();
 
