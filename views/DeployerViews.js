@@ -111,7 +111,7 @@ exports.ApproveInvitee = class extends React.Component {
         >Approve</button>
         <button
           disabled={!playable}
-          onClick={() => parent.playHand('SCISSORS')}
+          onClick={() => parent.playHand('DECLINE')}
         >Decline</button>
       </div>
     );

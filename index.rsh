@@ -1,6 +1,6 @@
 'reach 0.1';
 
-const [isHand, APPROVE, PAPER, SCISSORS] = makeEnum(3);
+const [isHand, APPROVE, PAPER, DECLINE] = makeEnum(3);
 const [isOutcome, B_WINS, DRAW, A_WINS] = makeEnum(3);
 
 const winner = (handAlice, handBob) =>
