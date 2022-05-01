@@ -1,7 +1,7 @@
 'reach 0.1';
 
-const [ isHand, ROCK, PAPER, SCISSORS ] = makeEnum(3);
-const [ isOutcome, B_WINS, DRAW, A_WINS ] = makeEnum(3);
+const [isHand, ROCK, PAPER, SCISSORS] = makeEnum(3);
+const [isOutcome, B_WINS, DRAW, A_WINS] = makeEnum(3);
 
 const winner = (handAlice, handBob) =>
   ((handAlice + (4 - handBob)) % 3);
@@ -19,7 +19,6 @@ forall(UInt, (hand) =>
 
 const Player = {
   ...hasRandom,
-  getHand: Fun([], UInt),
   seeOutcome: Fun([UInt], Null),
   informTimeout: Fun([], Null),
 };
@@ -31,7 +30,7 @@ export const main = Reach.App(() => {
     deadline: UInt, // time delta (blocks/rounds)
     approveInvitee: Fun([], UInt),
   });
-  const Bob   = Participant('Bob', {
+  const Bob = Participant('Bob', {
     ...Player,
     acceptWager: Fun([UInt], Null),
     requestRefund: Fun([], UInt),
@@ -59,8 +58,8 @@ export const main = Reach.App(() => {
     .timeout(relativeTime(deadline), () => closeTo(Alice, informTimeout));
 
   var outcome = DRAW;
-  invariant( balance() == 2 * wager && isOutcome(outcome) );
-  while ( outcome == DRAW ) {
+  invariant(balance() == 2 * wager && isOutcome(outcome));
+  while (outcome == DRAW) {
     commit();
 
     Alice.only(() => {
@@ -71,25 +70,25 @@ export const main = Reach.App(() => {
     });
     Alice.publish(approvalStatus, commitAlice)
       .timeout(relativeTime(deadline), () => closeTo(Bob, informTimeout));
-    commit();
 
-    unknowable(Bob, Alice(_handAlice, _saltAlice));
-    Bob.only(() => {
-      const handBob = declassify(interact.requestRefund());
-    });
-    Bob.publish(handBob)
-      .timeout(relativeTime(deadline), () => closeTo(Alice, informTimeout));
-    commit();
+    if (approvalStatus === B_WINS) {
+      commit();
+      Alice.pay(2 * wager)
+        .timeout(relativeTime(deadline), () => closeTo(Alice, informTimeout));
+      transfer(2 * wager).to(Bob);
+      outcome = B_WINS;
+      continue;
+    }
 
-    Alice.only(() => {
-      const saltAlice = declassify(_saltAlice);
-      const handAlice = declassify(_handAlice);
-    });
-    Alice.publish(saltAlice, handAlice)
-      .timeout(relativeTime(deadline), () => closeTo(Bob, informTimeout));
-    checkCommitment(commitAlice, saltAlice, handAlice);
+    if (approvalStatus === A_WINS) {
+      commit();
+      Bob.pay(2 * wager)
+        .timeout(relativeTime(deadline), () => closeTo(Bob, informTimeout));
+      transfer(2 * wager).to(Alice);
+      outcome = A_WINS;
+      continue;
+    }
 
-    outcome = winner(handAlice, handBob);
     continue;
   }
 
