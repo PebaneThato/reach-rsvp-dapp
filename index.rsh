@@ -34,6 +34,7 @@ export const main = Reach.App(() => {
   const Bob   = Participant('Bob', {
     ...Player,
     acceptWager: Fun([UInt], Null),
+    requestRefund: Fun([], UInt),
   });
   init();
 
@@ -73,7 +74,7 @@ export const main = Reach.App(() => {
 
     unknowable(Bob, Alice(_handAlice, _saltAlice));
     Bob.only(() => {
-      const handBob = declassify(interact.getHand());
+      const handBob = declassify(interact.requestRefund());
     });
     Bob.publish(handBob)
       .timeout(relativeTime(deadline), () => closeTo(Alice, informTimeout));

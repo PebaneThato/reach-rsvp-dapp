@@ -102,7 +102,6 @@ exports.ApproveInvitee = class extends React.Component {
     const {parent, playable, hand} = this.props;
     return (
       <div>
-        {hand ? 'Waiting for more invitees.' : ''}
         <br />
         {!playable ? 'Please wait...' : ''}
         <br />
