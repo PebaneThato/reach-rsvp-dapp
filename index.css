@@ -11,19 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 .App {
   text-align: center;
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: rgb(255, 255, 255);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #212529;
 }
 
 .App-link {
@@ -32,11 +33,27 @@ code {
 
 input[type=number] {
   font-size: calc(10px + 2vmin);
-  width: 4em;
+  width: 100%;
+}
+
+label {
+  display: inline-block;
+    margin-bottom: 0.5rem;
 }
 
 button {
   font-size: calc(10px + 2vmin);
+  padding: 0px !important;
+  text-align: center !important;
+  font-weight: 400 !important;
+  font-size: 0.75rem !important;
+  border-radius: 5px !important;
+  border: 1px solid rgb(36, 94, 198) !important;
+  background-color: rgb(36, 94, 198) !important;
+  color: rgb(255, 255, 255) !important;
+  min-width: 250px !important;
+  height: 50px !important;
+  cursor: pointer;
 }
 
 textarea {
@@ -51,4 +68,63 @@ textarea {
   padding: 2vw;
   overflow-x: scroll;
   white-space: pre;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  color: rgb(0, 0, 0);
+  -webkit-box-pack: justify;
+  -webkit-box-align: center;
+  font-size: 0.8rem;
+  align-items: center;
+  vertical-align: middle;
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgb(0, 0, 0);
+  text-align: left;
+  top: 0px;
+  z-index: 2;
+  box-shadow: rgb(0 0 0 / 16%) 0px 1.5px 3px 0px;
+  height: 55px;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.topnav #myLinks {
+  display: none;
+}
+
+.topnav a {
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+}
+
+.topnav a.icon {
+  background: black;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.input-group {
+  border: 1px solid rgb(166, 176, 195) !important;
+  height: 46px !important;
+  border-radius: 0.25rem !important;
+  width: 100% !important;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
 }

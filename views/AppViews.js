@@ -4,11 +4,14 @@ const exports = {};
 
 exports.Wrapper = class extends React.Component {
   render() {
-    const {content} = this.props;
+    const { content } = this.props;
     return (
       <div className="App">
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <div class="topnav">
+          <a href="#home" class="active">RSVP dApp</a>
+        </div>
         <header className="App-header" id="root">
-          <h1>RSVP dApp</h1>
           {content}
         </header>
       </div>
@@ -29,7 +32,7 @@ exports.ConnectAccount = class extends React.Component {
 
 exports.FundAccount = class extends React.Component {
   render() {
-    const {bal, standardUnit, defaultFundAmt, parent} = this.props;
+    const { bal, standardUnit, defaultFundAmt, parent } = this.props;
     const amt = (this.state || {}).amt || defaultFundAmt;
     return (
       <div>
@@ -44,7 +47,7 @@ exports.FundAccount = class extends React.Component {
         <input
           type='number'
           placeholder={defaultFundAmt}
-          onChange={(e) => this.setState({amt: e.currentTarget.value})}
+          onChange={(e) => this.setState({ amt: e.currentTarget.value })}
         />
         <button onClick={() => parent.fundAccount(amt)}>Fund Account</button>
         <button onClick={() => parent.skipFundAccount()}>Skip</button>
@@ -55,7 +58,7 @@ exports.FundAccount = class extends React.Component {
 
 exports.DeployerOrAttacher = class extends React.Component {
   render() {
-    const {parent} = this.props;
+    const { parent } = this.props;
     return (
       <div>
         Please select a role:

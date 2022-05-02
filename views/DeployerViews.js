@@ -23,8 +23,8 @@ exports.SetEventFee = class extends React.Component {
     const eventFee = (this.state || {}).eventFee || defaultEventFee;
     return (
       <div>
-        <div>Evenet Fee  {standardUnit}</div>
-        <div>
+        <label>Evenet Fee  {standardUnit}</label>
+        <div class="input-group">
           <input
             type='number'
             placeholder={defaultEventFee}
@@ -99,20 +99,26 @@ exports.WaitingForAttacher = class extends React.Component {
 
 exports.ApproveInvitee = class extends React.Component {
   render() {
-    const {parent, playable, hand} = this.props;
+    const { parent, playable } = this.props;
     return (
       <div>
         <br />
-        {!playable ? 'Please wait...' : ''}
+        The client has rsvp'd, Approve or Decline...
         <br />
-        <button
-          disabled={!playable}
-          onClick={() => parent.playHand('APPROVE')}
-        >Approve</button>
-        <button
-          disabled={!playable}
-          onClick={() => parent.playHand('DECLINE')}
-        >Decline</button>
+        <br />
+        <div>
+          <button
+            disabled={!playable}
+            onClick={() => parent.playHand('APPROVE')}
+          >Approve</button>
+        </div>
+        <br />
+        <div>
+          <button
+            disabled={!playable}
+            onClick={() => parent.playHand('DECLINE')}
+          >Decline</button>
+        </div>
       </div>
     );
   }
